@@ -81,7 +81,7 @@ When `yes` is given to this option, it mails when the file matches. By default n
 
 ### More info:
 
-See [https://raymii.org/s/software/]().
+See [https://raymii.org/s/software/Python-script-to-monitor-a-file-for-changes-and-then-mail-the-report-with-the-file-attached.html](https://raymii.org/s/software/Python-script-to-monitor-a-file-for-changes-and-then-mail-the-report-with-the-file-attached.html).
 
 ### License
 
