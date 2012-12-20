@@ -26,13 +26,13 @@ Usage of the script is fairly simple. I'll explain the command line options belo
 The MD5SUM you wish to compare the file to. If this option is given, the script will not write the checksum to a temp location for comparison (/tmp). This should be used if the checksum of the file is known and should not change.
 
 - -o --overwrite-checksum
-When `yes` is given to this option, when the checksum of a file has been changed, the script will write the new checksum to the temp file. This way you get an email when a change occurs, but changes are allowed. My AIDE database is known to change, but I still want to know when it changes.
+When this option is given, when the checksum of a file has been changed, the script will write the new checksum to the temp file. This way you get an email when a change occurs, but changes are allowed. My AIDE database is known to change, but I still want to know when it changes.
 
 - -e --email 
 The email address to send the report to. Defaults to `root@$hostname`.
 
 - -a --attach-file
-When `yes` is given to this option, the file which is checked is sent as an attachment with the email. My AIDE database gets mailed every time it changes. This way you can inspect the changed file without logging on to the remote system, or keep it for archival purposes.
+When this option is given, the file which is checked is sent as an attachment with the email. My AIDE database gets mailed every time it changes. This way you can inspect the changed file without logging on to the remote system, or keep it for archival purposes.
 
 - -s --smtp 
 Hostname or IP address of the SMTP server. Defaults to `localhost`.
@@ -41,25 +41,25 @@ Hostname or IP address of the SMTP server. Defaults to `localhost`.
 The `From` address of the email. Defaults to `root@$hostname`.
 
 - -m --mail-on-match
-When `yes` is given to this option, it mails when the file matches. By default no email is sent when the file checksum matches. With this switch you can force an email when the file checksum has not been changed.
+When this option is given, it mails when the file matches. By default no email is sent when the file checksum matches. With this switch you can force an email when the file checksum has not been changed.
 
 ### Examples
 
 1. Monitor the file `/var/lib/aide/aide.db.gz`, mail to `admin@domain.com`, overwrite checksum on change and attach the file:
 
-    ./check-file.py  -e "admin@domain.com" -a yes -o yes /var/lib/aide/aide.db.gz
+    ./check-file.py  -e "admin@domain.com" -a -o /var/lib/aide/aide.db.gz
 
 2. Monitor the file `/var/lib/aide/aide.db.gz` against known checksum and mail to `admin@domain.com`:
 
-    ./check-file.py -e "admin@domain.com" -a yes -c "41ce523dd72a67039df2db9b4542411c" /var/lib/aide/aide.db.gz
+    ./check-file.py -e "admin@domain.com" -a -c "41ce523dd72a67039df2db9b4542411c" /var/lib/aide/aide.db.gz
 
 3. Monitor file `/etc/passwd`, send even if md5sum matches, from `customer@kpn.nl` using smtp server `smtp.kpnmail.com`, do not attach it to the email and do not overwrite the checksum file:
     
-    ./check-file.py -e "admin@domain.com" -f "customer@kpn.nl" -s "smtp.kpnmail.com" -m yes /etc/passwd
+    ./check-file.py -e "admin@domain.com" -f "customer@kpn.nl" -s "smtp.kpnmail.com" -m /etc/passwd
 
 4. Cron job to monitor the AIDE database and mail changes every night at 10 PM:
 
-    1 22 * * * /usr/bin/python /root/scripts/check-file.py -e "admin@domain.com" -a yes -o yes /var/lib/aide/aide.db.gz
+    1 22 * * * /usr/bin/python /root/scripts/check-file.py -e "admin@domain.com" -a -o /var/lib/aide/aide.db.gz
 
 ### Sample report email
 
